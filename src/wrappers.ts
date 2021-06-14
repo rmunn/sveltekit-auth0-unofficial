@@ -1,4 +1,3 @@
-import url from 'url';
 import type { Request, EndpointOutput } from '@sveltejs/kit';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { ReadOnlyFormData, Headers } from '@sveltejs/kit/types/helper';
@@ -9,7 +8,7 @@ function ensureLeadingSlash(path: string) {
 
 function buildUrl(host: any, path: any, query: URLSearchParams) {
     const slashPath = ensureLeadingSlash(path || '/');
-    const urlObj = new url.URL(`https://${host}${slashPath}`);
+    const urlObj = new URL(`https://${host}${slashPath}`);
     if (typeof query === "string") {
         urlObj.search = query;
     } else if (query && typeof query.toString === "function") {
@@ -41,10 +40,10 @@ function mkReq(param: Request) : NextApiRequest {
 
 // TODO: Implement caching with WeakMap based on original Svelte request object (which we'll preserve a reference to in the ResMimic instance so that they're deferenced together)
 class ResMimic {
-    headers: Map<any, any>;
+    headers: Map<string, any>;
     statusCode: number;
     statusMessage: string | undefined;
-    bodyObj: { [key: string]: any };
+    bodyObj: { [key: string]: any } | undefined;
     bodyStr: string;
 
     constructor() {
@@ -115,7 +114,7 @@ class ResMimic {
 
     getSvelteResponse() : EndpointOutput {
         const status = this.statusCode;
-        const headers = {};
+        const headers: { [key: string]: any } = {};
         for (const [k, v] of this.headers.entries()) {
             headers[k] = (v.length === 1 ? v[0] : v);
         }
