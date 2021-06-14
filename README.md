@@ -44,7 +44,7 @@ const myAuth0Config = {
 export default initAuth0(myAuth0Config);
 ```
 
-Then either follow the quick-start instructions below, or the manual setup instructions further down.
+Then either follow the [quick-start instructions](#quick-start) below, or the [manual setup instructions](#manual-setup) further down.
 
 ### Quick-start
 
@@ -85,6 +85,8 @@ export function getSession(request) {
 ```
 
 Now you'll have access to the `user` object and `isAuthenticated` boolean in the `export load({ session })` functions on your pages. Additionally, in your endpoint handlers you'll have access to `request.locals.auth0Session` which will contain `auth0Session.idToken`, `auth0Session.accessToken`, and so on. (See https://auth0.github.io/nextjs-auth0/classes/session_session.default.html for more).
+
+You may want to read about the [helper functions available](#helper-functions) now.
 
 ### Manual setup
 
