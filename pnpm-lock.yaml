@@ -3,10 +3,13 @@ lockfileVersion: 5.3
 specifiers:
   '@auth0/nextjs-auth0': ^1.4.0
   '@sveltejs/kit': ^1.0.0-next.115
+  '@types/react': ^17.0.11
+  '@types/react-dom': ^17.0.7
   '@typescript-eslint/eslint-plugin': ^4.26.1
   '@typescript-eslint/parser': ^4.26.1
   eslint: ^7.28.0
   next: ^10.2.3
+  react: ^17.0.2
   rimraf: ^3.0.2
   ts-node: ^10.0.0
   typescript: ^4.3.2
@@ -14,10 +17,13 @@ specifiers:
 devDependencies:
   '@auth0/nextjs-auth0': 1.4.0_next@10.2.3
   '@sveltejs/kit': 1.0.0-next.115
+  '@types/react': 17.0.11
+  '@types/react-dom': 17.0.7
   '@typescript-eslint/eslint-plugin': 4.26.1_c8cbd5e7f5f92609ec78d991aced454b
   '@typescript-eslint/parser': 4.26.1_eslint@7.28.0+typescript@4.3.2
   eslint: 7.28.0
-  next: 10.2.3_typescript@4.3.2
+  next: 10.2.3_react@17.0.2+typescript@4.3.2
+  react: 17.0.2
   rimraf: 3.0.2
   ts-node: 10.0.0_typescript@4.3.2
   typescript: 4.3.2
@@ -37,7 +43,7 @@ packages:
       http-errors: 1.8.0
       joi: 17.4.0
       jose: 2.0.5
-      next: 10.2.3_typescript@4.3.2
+      next: 10.2.3_react@17.0.2+typescript@4.3.2
       on-headers: 1.0.2
       openid-client: 4.7.4
       tslib: 2.3.0
@@ -128,7 +134,7 @@ packages:
     resolution: {integrity: sha512-OkeY4cLhzfYbXxM4fd+6V4s5pTPuyfKSlavItfNRA6PpS7t1/R6YjO7S7rB8tu1pbTGuDHGIdE1ioDv15bAbDQ==}
     dev: true
 
-  /@next/react-dev-overlay/10.2.3:
+  /@next/react-dev-overlay/10.2.3_react@17.0.2:
     resolution: {integrity: sha512-E6g2jws4YW94l0lMMopBVKIZK2mEHfSBvM0d9dmzKG9L/A/kEq6LZCB4SiwGJbNsAdlk2y3USDa0oNbpA+m5Kw==}
     peerDependencies:
       react: ^16.9.0 || ^17
@@ -141,6 +147,7 @@ packages:
       css.escape: 1.5.1
       data-uri-to-buffer: 3.0.1
       platform: 1.3.6
+      react: 17.0.2
       shell-quote: 1.7.2
       source-map: 0.8.0-beta.0
       stacktrace-parser: 0.1.10
@@ -310,10 +317,32 @@ packages:
     resolution: {integrity: sha512-zjQ69G564OCIWIOHSXyQEEDpdpGl+G348RAKY0XXy9Z5kU9Vzv1GMNnkar/ZJ8dzXB3COzD9Mo9NtRZ4xfgUww==}
     dev: true
 
+  /@types/prop-types/15.7.3:
+    resolution: {integrity: sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==}
+    dev: true
+
+  /@types/react-dom/17.0.7:
+    resolution: {integrity: sha512-Wd5xvZRlccOrCTej8jZkoFZuZRKHzanDDv1xglI33oBNFMWrqOSzrvWFw7ngSiZjrpJAzPKFtX7JvuXpkNmQHA==}
+    dependencies:
+      '@types/react': 17.0.11
+    dev: true
+
+  /@types/react/17.0.11:
+    resolution: {integrity: sha512-yFRQbD+whVonItSk7ZzP/L+gPTJVBkL/7shLEF+i9GC/1cV3JmUxEQz6+9ylhUpWSDuqo1N9qEvqS6vTj4USUA==}
+    dependencies:
+      '@types/prop-types': 15.7.3
+      '@types/scheduler': 0.16.1
+      csstype: 3.0.8
+    dev: true
+
   /@types/responselike/1.0.0:
     resolution: {integrity: sha512-85Y2BjiufFzaMIlvJDvTTB8Fxl2xfLo4HgmHzVBz08w4wDePCTjYw66PdrolO0kzli3yam/YCgRufyo1DdQVTA==}
     dependencies:
       '@types/node': 15.12.2
+    dev: true
+
+  /@types/scheduler/0.16.1:
+    resolution: {integrity: sha512-EaCxbanVeyxDRTQBkdLb3Bvl/HK7PBK6UJjsSixB0iHKoWxE5uu2Q/DgtpOhPIojN0Zl1whvOd7PoHs2P0s5eA==}
     dev: true
 
   /@typescript-eslint/eslint-plugin/4.26.1_c8cbd5e7f5f92609ec78d991aced454b:
@@ -938,6 +967,10 @@ packages:
     dependencies:
       cssnano-preset-simple: 2.0.0_postcss@8.2.13
       postcss: 8.2.13
+    dev: true
+
+  /csstype/3.0.8:
+    resolution: {integrity: sha512-jXKhWqXPmlUeoQnF/EhTtTl4C9SnrxSH/jZUih3jmO6lBKr99rP3/+FmrMj4EFpOXzMtXHAZkd3x0E6h6Fgflw==}
     dev: true
 
   /data-uri-to-buffer/3.0.1:
@@ -1993,7 +2026,7 @@ packages:
     resolution: {integrity: sha1-Sr6/7tdUHywnrPspvbvRXI1bpPc=}
     dev: true
 
-  /next/10.2.3_typescript@4.3.2:
+  /next/10.2.3_react@17.0.2+typescript@4.3.2:
     resolution: {integrity: sha512-dkM1mIfnORtGyzw/Yme8RdqNxlCMZyi4Lqj56F01/yHbe1ZtOaJ0cyqqRB4RGiPhjGGh0319f8ddjDyO1605Ow==}
     engines: {node: '>=10.13.0'}
     hasBin: true
@@ -2015,7 +2048,7 @@ packages:
       '@hapi/accept': 5.0.2
       '@next/env': 10.2.3
       '@next/polyfill-module': 10.2.3
-      '@next/react-dev-overlay': 10.2.3
+      '@next/react-dev-overlay': 10.2.3_react@17.0.2
       '@next/react-refresh-utils': 10.2.3_react-refresh@0.8.3
       '@opentelemetry/api': 0.14.0
       assert: 2.0.0
@@ -2049,15 +2082,16 @@ packages:
       prop-types: 15.7.2
       querystring-es3: 0.2.1
       raw-body: 2.4.1
+      react: 17.0.2
       react-is: 16.13.1
       react-refresh: 0.8.3
       stream-browserify: 3.0.0
       stream-http: 3.1.1
       string_decoder: 1.3.0
-      styled-jsx: 3.3.2
+      styled-jsx: 3.3.2_react@17.0.2
       timers-browserify: 2.0.12
       tty-browserify: 0.0.1
-      use-subscription: 1.5.1
+      use-subscription: 1.5.1_react@17.0.2
       util: 0.12.3
       vm-browserify: 1.1.2
       watchpack: 2.1.1
@@ -2453,6 +2487,14 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /react/17.0.2:
+    resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+    dev: true
+
   /readable-stream/2.3.7:
     resolution: {integrity: sha512-Ebho8K4jIbHAxnuxi7o42OrZgF/ZTNcsZj6nRKyUmkhLFq8CHItp/fy6hQZuZmP/n3yZ9VBUbp4zz/mX8hmYPw==}
     dependencies:
@@ -2771,7 +2813,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /styled-jsx/3.3.2:
+  /styled-jsx/3.3.2_react@17.0.2:
     resolution: {integrity: sha512-daAkGd5mqhbBhLd6jYAjYBa9LpxYCzsgo/f6qzPdFxVB8yoGbhxvzQgkC0pfmCVvW3JuAEBn0UzFLBfkHVZG1g==}
     peerDependencies:
       react: 15.x.x || 16.x.x || 17.x.x
@@ -2780,6 +2822,7 @@ packages:
       babel-plugin-syntax-jsx: 6.18.0
       convert-source-map: 1.7.0
       loader-utils: 1.2.3
+      react: 17.0.2
       source-map: 0.7.3
       string-hash: 1.1.3
       stylis: 3.5.4
@@ -2995,12 +3038,13 @@ packages:
       querystring: 0.2.0
     dev: true
 
-  /use-subscription/1.5.1:
+  /use-subscription/1.5.1_react@17.0.2:
     resolution: {integrity: sha512-Xv2a1P/yReAjAbhylMfFplFKj9GssgTwN7RlcTxBujFQcloStWNDQdc4g4NRWH9xS4i/FDk04vQBptAXoF3VcA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0
     dependencies:
       object-assign: 4.1.1
+      react: 17.0.2
     dev: true
 
   /util-deprecate/1.0.2:

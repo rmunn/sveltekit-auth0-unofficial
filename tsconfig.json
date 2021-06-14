@@ -5,6 +5,7 @@
       "es2019"
     ],
     "downlevelIteration": true,
+    "esModuleInterop": true,  // Necessary for next.js and React code that we dev-depend on
     "moduleResolution": "node",
     "alwaysStrict": true,
     "strictNullChecks": true,
