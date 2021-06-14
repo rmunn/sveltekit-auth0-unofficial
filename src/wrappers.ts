@@ -9,7 +9,7 @@ function ensureLeadingSlash(path: string) {
 
 function buildUrl(host: any, path: any, query: URLSearchParams) {
     const slashPath = ensureLeadingSlash(path || '/');
-    let urlObj = new url.URL(`https://${host}${slashPath}`);
+    const urlObj = new url.URL(`https://${host}${slashPath}`);
     if (typeof query === "string") {
         urlObj.search = query;
     } else if (query && typeof query.toString === "function") {
@@ -82,7 +82,7 @@ class ResMimic {
             realHeaders = headers || {};
         }
         for (const key in realHeaders) {
-            if (realHeaders.hasOwnProperty(key)) {
+            if (Object.prototype.hasOwnProperty.call(realHeaders, key)) {
                 this.setHeader(key, realHeaders[key]);
             }
         }

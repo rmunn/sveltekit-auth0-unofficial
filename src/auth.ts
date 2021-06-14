@@ -3,8 +3,8 @@ import { auth0Wrapper, auth0WrapperJson } from './wrappers';
 import type { Request as SvelteRequest, RequestHandler, Load, LoadInput, LoadOutput } from '@sveltejs/kit';
 
 export function initAuth0(config) {
-  let auth0 = origInitAuth0(config);
-  let getSession = auth0WrapperJson((req, res) => auth0.getSession(req, res));
+  const auth0 = origInitAuth0(config);
+  const getSession = auth0WrapperJson((req, res) => auth0.getSession(req, res));
   const loginUrl = config?.routes?.login || '/api/auth/login';
   return {
     getSession: getSession,
@@ -28,7 +28,7 @@ export function initAuth0(config) {
           return this.handleProfile(svelteReq);
         default:
           return;  // Fall through to other handlers
-      };
+      }
     },
 
     withPageAuthRequired(opts?: { load?: Load, returnTo? : string }) {
@@ -37,7 +37,7 @@ export function initAuth0(config) {
         if (isAuthenticated) {
           const user = loadParams.session?.user;
           if (opts?.load && typeof opts?.load === 'function') {
-            var loadResult = opts?.load(loadParams);
+            const loadResult = opts?.load(loadParams);
             // Handle either promises or non-promises without making this function async
             if (loadResult && typeof (loadResult as any).then === 'function') {
               // Async load() function
