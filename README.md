@@ -6,13 +6,29 @@ A thin wrapper around the [auth0/nextjs-auth0 SDK](https://github.com/auth0/next
 
 ## Installing
 
-At the moment, this package does not specify any dependencies in its `package.json`. **You must include a dependency on `nextjs-auth0` yourself**, as well as the two dependencies (`nextjs` and `react`) that `nextjs-auth0` depends on. E.g.,
+Run `pnpm add sveltekit-auth0-unofficial` (or `npm add` or `yarn add`). You'll also need to use the Node adapter for Svelte-Kit. Edit your `svelte.config.js` and make it look something like this:
 
-```plaintext
-yarn add -D @auth0/nextjs-auth0 next react
 ```
+import node from '@sveltejs/adapter-node';
+import preprocess from 'svelte-preprocess';
 
-The `next` and `react` dependencies are required by nextjs-auth0; you will need to ensure that they are copied server-side, as currently (2021-01-22) the `@sveltejs/adapter-node` adapter does not copy `node_modules` into the build folder. This will make your server-side code large, but nothing from next.js or react will be visible client-side so your client bundle size will still be small.
+/** @type {import('@sveltejs/kit').Config} */
+const config = {
+  // Consult https://github.com/sveltejs/svelte-preprocess
+  // for more information about preprocessors
+  preprocess: preprocess(),
+
+  kit: {
+    // hydrate the <div id="svelte"> element in src/app.html
+    target: '#svelte',
+
+    // Node adapter
+    adapter: node(),
+  },
+};
+
+export default config;
+```
 
 ## Usage
 
