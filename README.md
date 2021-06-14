@@ -145,6 +145,31 @@ export function get(req) {
 }
 ```
 
+You'll also want to put the following into `src/hooks.ts`:
+
+```ts
+import type { Handle } from '@sveltejs/kit';
+import auth0 from '$lib/auth0';
+
+export const handle: Handle = async ({ request, resolve }) => {
+  const auth0Session = auth0.getSession(request);
+  request.locals.auth0Session = auth0Session;
+
+  const response = await resolve(request);
+  // You could modify the response here, e.g. by adding custom headers
+  return response;
+};
+
+export function getSession(request) {
+  const { auth0Session } = request.locals;
+  const isAuthenticated = !!auth0Session?.user;
+  const user = auth0Session?.user || {};
+  return { user, isAuthenticated }
+}
+```
+
+Now you'll have access to the `user` object and `isAuthenticated` boolean in the `export load({ session })` functions on your pages.
+
 The Auth0 functions from `nextjs-auth0` all take the same optional parameters documented in https://auth0.github.io/nextjs-auth0/. For example, to force a user profile refresh, call `auth0.handleProfile(req, { refetch: true });`. Or if you want to add custom data to the Auth0 session cookie, or remove data you don't want stored in the cookie, you can specify an `afterCallback` function in the callback handler, like so:
 
 ```ts
