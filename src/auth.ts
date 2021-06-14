@@ -2,7 +2,7 @@ import { initAuth0 as origInitAuth0 } from '@auth0/nextjs-auth0';
 import { auth0Wrapper, auth0WrapperJson } from './wrappers';
 import type { Request as SvelteRequest, RequestHandler, Load, LoadInput, LoadOutput } from '@sveltejs/kit';
 
-export function initAuth0(config) {
+export function initAuth0(config : { [key: string]: any }): any {
   const auth0 = origInitAuth0(config);
   const getSession = auth0WrapperJson((req, res) => auth0.getSession(req, res));
   const loginUrl = config?.routes?.login || '/api/auth/login';
