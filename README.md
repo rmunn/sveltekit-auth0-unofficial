@@ -70,6 +70,8 @@ import auth0 from '$lib/auth0';
 export const handle: Handle = async ({ request, resolve }) => {
   const auth0Session = auth0.getSession(request);
   request.locals.auth0Session = auth0Session;
+  request.locals.isAuthenticated = !!auth0Session?.user;
+  request.locals.user = auth0Session?.user || {};
 
   const response = await resolve(request);
   // You could modify the response here, e.g. by adding custom headers
@@ -77,14 +79,12 @@ export const handle: Handle = async ({ request, resolve }) => {
 };
 
 export function getSession(request) {
-  const { auth0Session } = request.locals;
-  const isAuthenticated = !!auth0Session?.user;
-  const user = auth0Session?.user || {};
-  return { user, isAuthenticated }
+  const { isAuthenticated, user } = request.locals;
+  return { isAuthenticated, user }
 }
 ```
 
-Now you'll have access to the `user` object and `isAuthenticated` boolean in the `export load({ session })` functions on your pages.
+Now you'll have access to the `user` object and `isAuthenticated` boolean in the `export load({ session })` functions on your pages. Additionally, in your endpoint handlers you'll have access to `request.locals.auth0Session` which will contain `auth0Session.idToken`, `auth0Session.accessToken`, and so on. (See https://auth0.github.io/nextjs-auth0/classes/session_session.default.html for more).
 
 ### Manual setup
 
@@ -154,6 +154,8 @@ import auth0 from '$lib/auth0';
 export const handle: Handle = async ({ request, resolve }) => {
   const auth0Session = auth0.getSession(request);
   request.locals.auth0Session = auth0Session;
+  request.locals.isAuthenticated = !!auth0Session?.user;
+  request.locals.user = auth0Session?.user || {};
 
   const response = await resolve(request);
   // You could modify the response here, e.g. by adding custom headers
@@ -161,14 +163,12 @@ export const handle: Handle = async ({ request, resolve }) => {
 };
 
 export function getSession(request) {
-  const { auth0Session } = request.locals;
-  const isAuthenticated = !!auth0Session?.user;
-  const user = auth0Session?.user || {};
-  return { user, isAuthenticated }
+  const { isAuthenticated, user } = request.locals;
+  return { isAuthenticated, user }
 }
 ```
 
-Now you'll have access to the `user` object and `isAuthenticated` boolean in the `export load({ session })` functions on your pages.
+Now you'll have access to the `user` object and `isAuthenticated` boolean in the `export load({ session })` functions on your pages. Additionally, in your endpoint handlers you'll have access to `request.locals.auth0Session` which will contain `auth0Session.idToken`, `auth0Session.accessToken`, and so on. (See https://auth0.github.io/nextjs-auth0/classes/session_session.default.html for more).
 
 The Auth0 functions from `nextjs-auth0` all take the same optional parameters documented in https://auth0.github.io/nextjs-auth0/. For example, to force a user profile refresh, call `auth0.handleProfile(req, { refetch: true });`. Or if you want to add custom data to the Auth0 session cookie, or remove data you don't want stored in the cookie, you can specify an `afterCallback` function in the callback handler, like so:
 
