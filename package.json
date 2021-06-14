@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:commonjs": "rimraf lib && tsc --target es5 --outDir lib --module commonjs --declaration",
     "build:es": "rimraf es && tsc --target es6 --outDir es --module es6",
-    "build": "npm run build:commonjs && npm run build:es",
+    "build": "pnpm run build:commonjs && pnpm run build:es",
     "ts": "ts-node src/",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "pnpm run build"
   },
   "author": "Robin Munn",
   "license": "MIT",
