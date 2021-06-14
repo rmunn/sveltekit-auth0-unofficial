@@ -178,54 +178,61 @@ export function get(svelteReq) {
 
 ## Helper functions
 
-TODO: Document `withApiAuthRequired` and `withPageAuthRequired`. Example of the latter below:
+The `nextjs-auth0` library defines two helper functions, `withPageAuthRequired` and `withApiAuthRequired`, for pages and API endpoints respectively. In `sveltekit-auth0-unofficial`, these functions have been converted to take arguments more appropriate for Svelte-Kit. The `withPageAuthRequired` function takes an optional parameters object, just as in `nextjs-auth0`, but where the `nextjs-auth0` version of this function allows you to pass in your own `getServerSideProps` function, the Svelte-Kit version of `withPageAuthRequired` will have you pass in your own `load` function instead. The return value of `withPageAuthRequired` is suitable for exporting as your page's `load` function. E.g.,
 
 ```html
 <script context="module">
-	import { browser, dev } from '$app/env';
-    import auth0 from '$lib/auth0';
+  export const load = auth0.withPageAuthRequired()
+</script>
+```
 
-    export const load = auth0.withPageAuthRequired({ load: async function load(params) {
-        return { props: { innerLoadTest: "Yep, inner load got called" }};
-    }});
+`withPageAuthRequired` will check whether the session contains a logged in user (detected by whether the session contains an `isAuthenticated` boolean that is true); if not, then it will redirect to your login page (as defined in your auth0 config) and return to the current page after the user has logged in. If the session contains a logged in user, then the value of `session.user` will be passed into `props.user`.
+
+The optional `returnTo` parameter is not needed most of the time: `withPageAuthRequired` will calculate the return URL based on the current page's path and query parameters, which should be what you need most of the time. But if you need to return to a URL that's not exactly the one that the page was loaded by, then pass a `returnTo` parameter (as a string).
+
+The optional `load` parameter (which replaces the `getServerSideProps` parameter from the `nextjs-auth0` library), if specified, should be a standard Svelte-Kit `load` function, which can be either synchronous or async. If there is no logged-in user, your `load` function will not be called, and `withPageAuthRequired` will redirect to the login URL. So your `load` function can count on there being a valid user in `session.user`. If your `load` function returns anything, then the props will be populated with a `user` value corresponding to `session.user`; but if your `load` function returns nothing (because you intend to fall through to a different route), then `withPageAuthRequired` will not populate the props and will also return nothing.
+
+Usage example with inner `load` function:
+
+```html
+<script context="module">
+  import { browser, dev } from '$app/env';
+  import auth0 from '$lib/auth0';
+
+  export const load = auth0.withPageAuthRequired({ load: async function load(params) {
+    // Yes, this function doesn't need to be async, but I made it async for the example
+    return { props: { innerLoadTest: "Yep, inner load got called" }};
+    // No need to populate `props.user`, as `withPageAuthRequired` will take care of that part
+  }});
 </script>
 
 <script lang="ts">
-    export let innerLoadTest: string = "Nope, inner load was NOT called";
-    export let user: any;
+  export let innerLoadTest: string = "Nope, inner load was NOT called";
+  export let user: any;
 </script>
 
 <svelte:head>
-	<title>Profile</title>
+  <title>Profile</title>
 </svelte:head>
 
 <div class="content">
-	<h1>Your profile</h1>
+  <h1>Your profile</h1>
 
-    <p>
-        Hello, {user.given_name} {user.family_name}. <br/>
-        Here's the profile picture you chose:
-    </p>
+  <p>
+    Hello, {user.given_name} {user.family_name}. <br/>
+    Here's the profile picture you chose: <br/>
+    <!-- svelte-ignore a11y-img-redundant-alt -->
+    <img src={user.picture} alt='Profile image'>
+  </p>
 
-    <p>
-        <!-- svelte-ignore a11y-img-redundant-alt -->
-        <img src={user.picture} alt='Profile image'>
-    </p>
+  <p>
+    You can <a href="/api/auth/logout">log out</a> if you want.
+  </p>
 
-<!-- 
-	<p>
-		Here's what we know about you:
-	</p>
-
-	<pre>{JSON.stringify(user || 'nothing, zip, nada — your profile was not loaded')}</pre>
--->
-
-	<p>
-		You can <a href="/api/auth/logout">log out</a> if you want.
-	</p>
-
-    <p>
-		{innerLoadTest}
-	</p>
+  <p>
+    {innerLoadTest}
+  </p>
 </div>
 ```
+
+TODO: Document `withApiAuthRequired`
