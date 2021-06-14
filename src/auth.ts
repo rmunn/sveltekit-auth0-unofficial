@@ -71,7 +71,7 @@ export function initAuth0(config) {
       }
     },
 
-    withApiAuthRequired: (route: RequestHandler, opts: { unauthHandler?: RequestHandler, unauthJson?: object } = {}): RequestHandler => {
+    withApiAuthRequired: (route: RequestHandler, opts: { unauthHandler?: RequestHandler, unauthJson?: { [key: string]: any; } } = {}): RequestHandler => {
       return (svelteReq) => {
         if (svelteReq.locals.isAuthenticated && svelteReq.locals.user) {
           // Already populated in hooks.ts handle() function, so we don't need to do any work here
