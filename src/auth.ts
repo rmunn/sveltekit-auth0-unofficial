@@ -71,8 +71,12 @@ export function initAuth0(config) {
       }
     },
 
-    withApiAuthRequired: (route: RequestHandler, unauthHandler: RequestHandler, auth0FnOptions?: any): RequestHandler => {
+    withApiAuthRequired: (route: RequestHandler, opts: { unauthHandler?: RequestHandler, unauthJson?: object } = {}): RequestHandler => {
       return (svelteReq) => {
+        if (svelteReq.locals.isAuthenticated && svelteReq.locals.user) {
+          // Already populated in hooks.ts handle() function, so we don't need to do any work here
+          return route(svelteReq);
+        }
         const session = getSession(svelteReq);
         if (session && session.user) {
           svelteReq.locals.user = {
@@ -81,12 +85,12 @@ export function initAuth0(config) {
           };
           svelteReq.locals.isAuthenticated = true;
           return route(svelteReq);
-        } else if (unauthHandler && typeof unauthHandler === "function") {
-          return unauthHandler(svelteReq);
+        } else if (opts.unauthHandler && typeof opts.unauthHandler === "function") {
+          return opts.unauthHandler(svelteReq);
         } else {
           return {
             status: 401,
-            body: {
+            body: opts.unauthJson || {
               error: 'not_authenticated',
               description: 'The user does not have an active session or is not authenticated'
             }

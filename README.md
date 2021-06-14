@@ -235,4 +235,11 @@ Usage example with inner `load` function:
 </div>
 ```
 
-TODO: Document `withApiAuthRequired`
+The `withApiAuthRequired` function is simpler. It takes an endpoint handler (a `get`, `post`, etc. function) and wraps it in code that checks whether there's a valid login session. If there is already a valid session in `request.locals` (`request.locals.isAuthenticated` is true, and `request.locals.user` is a non-nullish value) then it will call your endpoint handler. If `request.locals` does not contain a valid session, it tries to construct one by calling the `getSession` function from `nextjs-auth0`, and if the Auth0 function returns a valid session, `withApiAuthRequired` will populate `request.locals` with `user` and `isAuthenticated` values. If there is no login session available, then `withApiAuthRequired` will return a 401 result containing the following JSON: `{ error: 'not_authenticated', description: 'The user does not have an active session or is not authenticated' }`.
+
+The second parameter to `withApiAuthRequired`, if passed, should be an object with one of two keys:
+
+- `unauthHandler`: a request handler that will be called instead of returning a 401 if there is no Auth0 login session (this could, for example, return a "basic" version of a resource, with the "full" version available only to logged-in users, or it could localize the JSON)
+- `unauthJson`: the JSON to return in the body of the 401, instead of the default JSON above.
+
+If both `unauthHandler` and `unauthJson` are specified, `unauthHandler` will be used and `unauthJson` will be ignored.
