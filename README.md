@@ -25,20 +25,20 @@ import { AUTH0_SECRET } from './secrets';
 
 // In addition to environment variables, can also put Auth0 settings here
 const myAuth0Config = {
-    // Required settings (must specify either here or in environment variables)
-    secret: AUTH0_SECRET,  // Should be a randomly-generated string of at *least* 32 characters.
-    // clientID: 'my_auth0_client_id',
-    // clientSecret: AUTH0_CLIENT_SECRET,
-    // In this example, AUTH0_CLIENT_ID and AUTH0_CLIENT_SECRET are passed in via environment variables and not specified here
-    baseURL: 'http://localhost:3000',
-    issuerBaseURL: 'https://example.us.auth0.com',
+  // Required settings (must specify either here or in environment variables)
+  secret: AUTH0_SECRET,  // Should be a randomly-generated string of at *least* 32 characters.
+  // clientID: 'my_auth0_client_id',
+  // clientSecret: AUTH0_CLIENT_SECRET,
+  // In this example, AUTH0_CLIENT_ID and AUTH0_CLIENT_SECRET are passed in via environment variables and not specified here
+  baseURL: 'http://localhost:3000',
+  issuerBaseURL: 'https://example.us.auth0.com',
 
-    // Optional settings
-    enableTelemetry: false,  // Don't send Auth0 the library version and Node version you're running
-    routes: {
-        postLogoutRedirect: '/goodbye',
-        // Can also specify login and callback routes here; default is /api/auth/login and /api/auth/callback
-    }
+  // Optional settings
+  enableTelemetry: false,  // Don't send Auth0 the library version and Node version you're running
+  routes: {
+    postLogoutRedirect: '/goodbye',
+    // Can also specify login and callback routes here; default is /api/auth/login and /api/auth/callback
+  }
 }
 
 // Environment variables and custom config will be merged in initAuth0, and its result should be your module's default export
@@ -56,7 +56,7 @@ Simply create a file named `src/routes/api/auth/[auth0].ts` and use the `handleA
 import auth0 from '$lib/auth0';
 
 export function get(req) {
-    return auth0.handleAuth(req);
+  return auth0.handleAuth(req);
 }
 ```
 
@@ -99,10 +99,10 @@ import { initAuth0 } from '@auth0/nextjs-auth0';
 
 const myAuth0Config = {
   routes: {
-      // Must specify login and callback routes if they differ from the default
-      login: '/login',
-      callback: '/api/callback',
-      // Don't need to specify logout and profile routes
+    // Must specify login and callback routes if they differ from the default
+    login: '/login',
+    callback: '/api/callback',
+    // Don't need to specify logout and profile routes
   }
 }
 
@@ -199,8 +199,8 @@ To return to a specific page after logging in, you can use a `returnTo` paramete
 import auth0 from '../auth0';
 
 export function get(svelteReq) {
-    const returnTo = svelteReq.query.get('returnTo');
-    return auth0.handleLogin(svelteReq, { returnTo });
+  const returnTo = svelteReq.query.get('returnTo');
+  return auth0.handleLogin(svelteReq, { returnTo });
 }
 ```
 
