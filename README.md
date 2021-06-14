@@ -20,20 +20,21 @@ Once you've installed `sveltekit-auth0-unofficial`, start by setting up your Aut
 
 ```ts
 // src/lib/auth0.ts
-import { initAuth0 } from '@auth0/nextjs-auth0';
-import { AUTH0_SECRET, AUTH0_CLIENT_SECRET } from './secrets';
+import { initAuth0 } from 'sveltekit-auth0-unofficial';
+import { AUTH0_SECRET } from './secrets';
 
 // In addition to environment variables, can also put Auth0 settings here
 const myAuth0Config = {
     // Required settings (must specify either here or in environment variables)
     secret: AUTH0_SECRET,  // Should be a randomly-generated string of at *least* 32 characters.
-    clientId: 'my_auth0_client_id',
-    clientSecret: AUTH0_CLIENT_SECRET
-    // In this example, AUTH0_BASE_URL is passed in via an environment variable and not specified here
-    issuerBaseUrl: 'https://example.us.auth0.com',
+    // clientID: 'my_auth0_client_id',
+    // clientSecret: AUTH0_CLIENT_SECRET,
+    // In this example, AUTH0_CLIENT_ID and AUTH0_CLIENT_SECRET are passed in via environment variables and not specified here
+    baseURL: 'http://localhost:3000',
+    issuerBaseURL: 'https://example.us.auth0.com',
 
     // Optional settings
-    enableTelemetry: false  // Don't send Auth0 the library version and Node version you're running
+    enableTelemetry: false,  // Don't send Auth0 the library version and Node version you're running
     routes: {
         postLogoutRedirect: '/goodbye',
         // Can also specify login and callback routes here; default is /api/auth/login and /api/auth/callback
