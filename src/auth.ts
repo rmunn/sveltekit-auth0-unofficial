@@ -61,7 +61,8 @@ export function initAuth0(config) {
             return { props: { user, isAuthenticated }}
           }
         } else {
-          const returnUrl = opts?.returnTo || `${loadParams.page.path}?${loadParams.page.query.toString()}`;
+          const queryStr = loadParams.page.query.toString();
+          const returnUrl = opts?.returnTo || `${loadParams.page.path}${queryStr ? '?' + queryStr : ''}`;
           return {
             status: 307,
             redirect: `${loginUrl}?returnTo=${encodeURIComponent(returnUrl)}`
