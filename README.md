@@ -6,7 +6,7 @@ A thin wrapper around the [auth0/nextjs-auth0 SDK](https://github.com/auth0/next
 
 ## Installing
 
-Run `pnpm add sveltekit-auth0-unofficial` (or `npm add` or `yarn add`). You'll also need to use the Node adapter for Svelte-Kit. Edit your `svelte.config.js` and make it look something like this:
+Run `pnpm add sveltekit-auth0-unofficial` (or `npm install` or `yarn add`). You'll also need to use the Node adapter for Svelte-Kit. Edit your `svelte.config.js` and make it look something like this:
 
 ```
 import node from '@sveltejs/adapter-node';
