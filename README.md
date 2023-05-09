@@ -1,12 +1,14 @@
 # Unofficial Auth0 client for Svelte-Kit
 
-A thin wrapper around the [auth0/nextjs-auth0 SDK](https://github.com/auth0/nextjs-auth0/), to adapt it to use with [Svelte-Kit](https://kit.svelte.dev/).
+This repo is for anyone who loves using SvelteKit but suffers from lack of interoperatbility with existing tools and services. If you want to use auth0 with Universal Login and use SvelteKit with SSR, look no further.
 
-**CAUTION:** Svelte-Kit is still in beta. It's possible things might break if Svelte-Kit's API changes drastically in the future.
+
+
+This is a thin wrapper around the [auth0/nextjs-auth0 SDK](https://github.com/auth0/nextjs-auth0/), to adapt it to use with [Svelte-Kit](https://kit.svelte.dev/). This is a fork of an [existing repo](https://github.com/rmunn/sveltekit-auth0-unofficial) by [rmunn](https://github.com/rmunn) which has not had any updates in a while. 
 
 ## Installing
 
-Run `pnpm add sveltekit-auth0-unofficial` (or `npm add` or `yarn add`). You'll also need to use the Node adapter for Svelte-Kit. Edit your `svelte.config.js` and make it look something like this:
+Run `pnpm add shawnlong636/sveltekit-auth0-unofficial` (or `npm add` or `yarn add`). You'll also need to use the Node adapter for Svelte-Kit. Edit your `svelte.config.js` and make it look something like this:
 
 ```
 import node from '@sveltejs/adapter-node';
